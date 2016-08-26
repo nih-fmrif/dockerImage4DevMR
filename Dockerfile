@@ -42,14 +42,21 @@ RUN rm -f      $SDKTOP/$ORCH_CUR
 # Walk through similar steps for ESE
 ENV ESETOP     /usr/local/devGE
 ENV ESE_CUR    ese-current.os-arch.rpm
+ENV WR_CUR     WindRiver_02.tgz
 ADD $ESE_CUR   $ESETOP
+ADD $WR_CUR    $ESETOP
 RUN rpm -ivh --force --nodeps --nofiledigest --ignorearch --prefix $ESETOP $ESETOP/$ESE_CUR
+# Clean up archives copied into container, and break/remove link to any existing/old ESE.
 RUN rm -f      $ESETOP/$ESE_CUR   $ESETOP/ESE_current
 # This provides a standard name link to the latest installed ESE.  If desired to link to
 # another ESE installation, customize as needed, or modify and commit Docker image directly
 # yourself.
-RUN cd $ESETOP ; ln -s `ls -rt -1 | tail -1` ESE_current
+RUN cd         $ESETOP   ;   ln -s `ls -rt -1 | tail -1` ESE_current
+# Link to new ESE.
 RUN sed -i '/set _ese = / c\set _ese = '"$ESETOP"'/ESE_current' $ESETOP/ESE_current/psd/config/set_ese_vars
+# In new ESE, point to WindRiver installation.
+RUN cd         $ESETOP/ESE_current   ;   rm -rf 3p_vxworks os   ;  \
+               ln -s ../WindRiver_02/3p_vxworks   ;   ln -s ../WindRiver_02/os
 
 
 

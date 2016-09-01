@@ -10,22 +10,22 @@ into this container themselves.  This repository provides guidance
 and instructions on how to go about doing that, but will not provide
 any proprietary software.
 
-To build the container, first copy the current Orchestra RPM to this
-directory, remove the empty file 'orchestra-sdk-current.os-arch.rpm',
-make a soft link to the Orchestra RPM just copied with the same name,
-'orchestra-sdk-current.os-arch.rpm'.  Copying the RPM into the build
-directory is required as Docker will not look for, or follow links to
-files outside of its build context.
+To build a GE container, first copy the current Orchestra, ESE, and
+WindRiver RPMs (the latter probably obtainable from an older ESE disk)
+to this directory.  These items must have specific names (detailed in
+Dockerfile). Copying RPMs into the build directory is required as Docker
+will not look for, or follow links to files outside of its build context.
 
 To build the container, use a command similar to:
 
    ```bash
-   docker build -t test:devGE .
+   docker build -t test:devContainerGE .
    ```
 
-and run with a command like:
+and feel free to choose an appropriate repository root and version name.
+The container can then be executed with a command like:
 
    ```bash
-   docker run --name devGE -it test:devGE
+   docker run --name devGE -it test:devContainerGE
    ```
 

@@ -1,0 +1,22 @@
+
+set Hostcheck=`hostname`
+
+if ( $?tcsh ) set prompt = "%m:%~ %B%P%b %h% "
+
+setenv PATH     .:{$HOME}/my_root/bin:/usr/local/bin:/bin:/sbin
+setenv PATH     {$PATH}:/usr/bin:/usr/X11R6/bin:/usr/sbin
+
+setenv LANG     C
+
+setenv LESSHISTFILE -   # turn off history file
+
+umask  022
+
+alias  rm       'rm -i'
+alias  cp       'cp -i'
+alias  mv       'mv -i'
+
+alias  lc       'ls --color=auto'
+alias  vi       'vim -i NONE -C'
+
+# Setup for ESE and Orchestra development environments.

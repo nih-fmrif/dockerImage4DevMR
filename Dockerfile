@@ -30,7 +30,7 @@ RUN zypper --gpg-auto-import-keys --non-interactive install \
 
 # If not defined, set SDKTOP here, and set up system for Orchestra.
 ENV SDKTOP     /usr/local/devGE/Orchestra
-ENV ORCH_CUR   orchestra-sdk-current.os-arch.rpm
+ENV ORCH_CUR   Orchestra-sdk-current.os-arch.rpm
 RUN mkdir -p   $SDKTOP
 ADD $ORCH_CUR  $SDKTOP
 RUN rpm -ivh --prefix $SDKTOP $SDKTOP/$ORCH_CUR
@@ -43,7 +43,7 @@ RUN rm -f      $SDKTOP/$ORCH_CUR
 ENV ESEHOME    /usr/local/devGE
 ENV WR_CUR     WindRiver.arch.rpm
 ADD $WR_CUR    $ESEHOME
-ENV ESE_CUR    ese-current.os-arch.rpm
+ENV ESE_CUR    ESE-current.os-arch.rpm
 ADD $ESE_CUR   $ESEHOME
 RUN rpm -ivh   --prefix $ESEHOME/WindRiver_02 $ESEHOME/$WR_CUR
 RUN rpm -ivh   --force --nodeps --nofiledigest --ignorearch --prefix $ESEHOME $ESEHOME/$ESE_CUR

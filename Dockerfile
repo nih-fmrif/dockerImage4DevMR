@@ -1,10 +1,11 @@
 
-FROM opensuse:13.1
+FROM opensuse:42.3
 
-# Add needed repos:
-RUN zypper ar -f http://download.opensuse.org/update/13.1/ update   &&   \
-    zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_13.1/ packman   &&   \
-    zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_13.1/ education
+RUN zypper ar -f http://download.opensuse.org/update/42.3/ update   &&   \
+    zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_42.3/ packman   &&   \
+    zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_42.3/ education   &&   \
+    zypper ar -f http://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_Leap_42.3/ obsPython && \
+    zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_42.3/ ace
 
 
 
@@ -21,26 +22,48 @@ ADD sdc.tcshrc             /home/sdc/.tcshrc
 # Install requirements for Orchestra and ESE.  Some, like 'rpm' and 'libz' are
 # already in the default image.
 RUN zypper --gpg-auto-import-keys --non-interactive install \
-         tcsh   gcc   gcc-c++   make   imake   wget   rsync \
-         tar   less   vim   emacs   which xorg-x11-fonts   glibc-32bit \
-         libXpm4-32bit   libXm4-32bit   libUil4-32bit   libMrm4-32bit \
-         xmessage xclock xeyes
+         make   imake   rsync   xmessage   xclock   glibc-32bit   emacs   which \
+         xorg-x11-fonts   libXpm4-32bit   libXm4-32bit   libUil4-32bit   libMrm4-32bit \
 
 
 
-# If not defined, set SDKTOP here, and set up system for Orchestra.
-ENV SDKTOP     /usr/local/devGE/Orchestra
-ENV ORCH_CUR   Orchestra-sdk-current.os-arch.rpm
-RUN mkdir -p   $SDKTOP
-ADD $ORCH_CUR  $SDKTOP
-RUN rpm -ivh --prefix $SDKTOP $SDKTOP/$ORCH_CUR
-RUN ln -s      /lib64/libz.so.1   /lib64/libz.so
-RUN rm -f      $SDKTOP/$ORCH_CUR
+# More generic utilities
+RUN zypper --gpg-auto-import-keys --non-interactive install \
+                                     # texlive-latex texlive-extratools texlive-dvips \
+                                     # texlive-beamer texlive-collection-fontsextra \
+                                     # texlive-collection-fontsrecommended \
+                                     vim vim-data tcsh sudo tar which less xterm wget \
+                                     hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
+                                     python-conda python-psycopg2
+
+# To buld and install AFNI:
+RUN zypper --gpg-auto-import-keys --non-interactive install \
+                                     libXft-devel libXp-devel libXpm-devel \
+                                     libXmu-devel libpng12-devel libjpeg62 \
+                                     zlib-devel libXt-devel libXext-devel \
+                                     libXi-devel libexpat-devel netpbm m4 \
+                                     libnetpbm-devel libGLU1 motif motif-devel \
+                                     gsl-devel glu-devel freeglut-devel \
+                                     netcdf netcdf-devel glib2-devel R-base-devel
+
+RUN ln -s /usr/lib64/libjpeg.so.62.1.0 /usr/lib64/libjpeg.so ; ln -s /usr/lib64/libpng16.so.16.8.0 /usr/lib64/libpng.so
+
+# Gadgetron and ISMRMRD development:
+RUN zypper --gpg-auto-import-keys --non-interactive install \
+                                     python-devel python-numpy python-numpy-devel \
+                                     python-matplotlib python-Sphinx \
+                                     doxygen python-dicom dcmtk dcmtk-devel libdcmtk3_6 \
+                                     armadillo-devel libarmadillo7 glew glew-devel git \
+                                     ace ace-devel boost-devel fftw3 fftw3-devel hdf5 hdf5-devel
+# For Siemens-ISMRMRD converter:
+RUN zypper --gpg-auto-import-keys --non-interactive install \
+                                     xsd libxerces-c-devel libxslt-devel tinyxml-devel libxml2-devel
 
 
 
 # Walk through similar steps for ESE
 ENV ESEHOME       /usr/local/devGE
+RUN mkdir -p      $ESEHOME
 ENV WR_CUR        WindRiver.arch.rpm
 ADD $WR_CUR       $ESEHOME
 ENV ESE_CUR       ESE-current.os-arch.rpm
@@ -62,6 +85,15 @@ RUN sed -i       's/_ese=/&$ESEHOME/'       $ESEHOME/ESE_current/psd/config/set_
 # In new ESE, point to WindRiver installation.
 RUN cd            $ESEHOME/ESE_current   ;   rm -rf 3p_vxworks os   ;  \
                   ln -s ../WindRiver_02/3p_vxworks   ;   ln -s ../WindRiver_02/os
+
+
+
+# If not defined, set SDKTOP here, and set up system for Orchestra.
+ENV SDKTOP     /usr/local/devGE/Orchestra/
+ENV ORCH_CUR   Orchestra-sdk-current.os-arch.tgz
+ADD $ORCH_CUR  /usr/local/devGE/
+RUN ln -s      /usr/local/devGE/orchestra-* /usr/local/devGE/Orchestra
+RUN ln -s      /lib64/libz.so.1   /lib64/libz.so
 
 
 

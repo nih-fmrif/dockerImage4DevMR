@@ -14,7 +14,7 @@ A Dockerfile for the basic software for this development repository
 is now included.  To build the image locally, run a command along
 the lines of:
 
-    ```bash
+   ```bash
    docker build -t local:fmrifDevContainerBase .
    ```
 

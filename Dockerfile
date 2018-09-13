@@ -1,62 +1,23 @@
 
-FROM opensuse:42.3
+FROM roopchansinghv/dockerimage4devmr:latest
 
-RUN zypper ar -f http://download.opensuse.org/update/42.3/ update   &&   \
-    zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_42.3/ packman   &&   \
-    zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_42.3/ education   &&   \
-    zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_42.3/ ace
+
+
+# Remove system HDF5 as compiler would not behave properly with both this
+# and Orchestra HDF5 libraries simultaneously.
+RUN zypper --non-interactive remove hdf5 hdf5-devel
 
 
 
 # Add informix group
 RUN groupadd  -f   -g 201   informix
 
+
+
 # and sdc user:
 RUN useradd   -d /home/sdc   -m   -u 9000   -g 100   -G users,audio,informix   \
               -s /usr/bin/tcsh   -k /dev/null   sdc
 ADD sdc.tcshrc             /home/sdc/.tcshrc
-
-
-
-# Install requirements for Orchestra and ESE.  Some, like 'rpm' and 'libz' are
-# already in the default image.
-RUN zypper --gpg-auto-import-keys --non-interactive install \
-         make   imake   rsync   socat   xmessage   xclock   glibc-32bit   libgcc_s1-32bit   emacs   which \
-         xorg-x11-fonts   libXpm4-32bit   libXm4-32bit   libUil4-32bit   libMrm4-32bit \
-
-
-
-# More generic utilities
-RUN zypper --gpg-auto-import-keys --non-interactive install \
-                                     # texlive-latex texlive-extratools texlive-dvips \
-                                     # texlive-beamer texlive-collection-fontsextra \
-                                     # texlive-collection-fontsrecommended \
-                                     vim vim-data tcsh sudo tar which less xterm wget \
-                                     hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
-                                     python-virtualenv python-psycopg2
-
-# To buld and install AFNI:
-RUN zypper --gpg-auto-import-keys --non-interactive install \
-                                     libXft-devel libXp-devel libXpm-devel \
-                                     libXmu-devel libpng12-devel libjpeg62 \
-                                     zlib-devel libXt-devel libXext-devel \
-                                     libXi-devel libexpat-devel netpbm m4 \
-                                     libnetpbm-devel libGLU1 motif motif-devel \
-                                     gsl-devel glu-devel freeglut-devel \
-                                     netcdf netcdf-devel glib2-devel R-base-devel
-
-RUN ln -s /usr/lib64/libjpeg.so.62.1.0 /usr/lib64/libjpeg.so ; ln -s /usr/lib64/libpng16.so.16.8.0 /usr/lib64/libpng.so
-
-# Gadgetron and ISMRMRD development:
-RUN zypper --gpg-auto-import-keys --non-interactive install \
-                                     python-devel python-numpy python-numpy-devel \
-                                     python-matplotlib python-Sphinx \
-                                     doxygen dcmtk dcmtk-devel libdcmtk3_6 \
-                                     armadillo-devel libarmadillo7 glew glew-devel git \
-                                     ace ace-devel boost-devel fftw3 fftw3-devel hdf5 hdf5-devel
-# For Siemens-ISMRMRD converter:
-RUN zypper --gpg-auto-import-keys --non-interactive install \
-                                     xsd libxerces-c-devel libxslt-devel tinyxml-devel libxml2-devel
 
 
 
@@ -92,7 +53,6 @@ ENV SDKTOP     /usr/local/devGE/Orchestra/
 ENV ORCH_CUR   Orchestra-sdk-current.os-arch.tgz
 ADD $ORCH_CUR  /usr/local/devGE/
 RUN ln -s      /usr/local/devGE/orchestra-* /usr/local/devGE/Orchestra
-RUN ln -s      /lib64/libz.so.1   /lib64/libz.so
 
 
 
@@ -107,6 +67,5 @@ RUN chown  -R sdc:users   /home/sdc
 
 
 # Default start-up command is just a plain ol' shell for now
-# ENTRYPOINT ["/bin/bash"]
 ENTRYPOINT ["/usr/bin/tcsh"]
 

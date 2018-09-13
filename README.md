@@ -10,3 +10,14 @@ into this container themselves.  This repository provides guidance
 and instructions on how to go about doing that, but will not provide
 any proprietary software.
 
+A Dockerfile for the basic software for this development repository
+is now included.  To build the image locally, run a command along
+the lines of:
+
+    ```bash
+   docker build -t local:fmrifDevContainerBase .
+   ```
+
+An image with a pre-built container should also be available from
+hub.docker.com
+

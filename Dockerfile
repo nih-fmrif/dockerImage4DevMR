@@ -4,7 +4,6 @@ FROM opensuse:42.3
 RUN zypper ar -f http://download.opensuse.org/update/42.3/ update   &&   \
     zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_42.3/ packman   &&   \
     zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_42.3/ education   &&   \
-    zypper ar -f http://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_Leap_42.3/ obsPython && \
     zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_42.3/ ace
 
 
@@ -22,7 +21,7 @@ ADD sdc.tcshrc             /home/sdc/.tcshrc
 # Install requirements for Orchestra and ESE.  Some, like 'rpm' and 'libz' are
 # already in the default image.
 RUN zypper --gpg-auto-import-keys --non-interactive install \
-         make   imake   rsync   xmessage   xclock   glibc-32bit   emacs   which \
+         make   imake   rsync   socat   xmessage   xclock   glibc-32bit   libgcc_s1-32bit   emacs   which \
          xorg-x11-fonts   libXpm4-32bit   libXm4-32bit   libUil4-32bit   libMrm4-32bit \
 
 
@@ -34,7 +33,7 @@ RUN zypper --gpg-auto-import-keys --non-interactive install \
                                      # texlive-collection-fontsrecommended \
                                      vim vim-data tcsh sudo tar which less xterm wget \
                                      hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
-                                     python-conda python-psycopg2
+                                     python-virtualenv python-psycopg2
 
 # To buld and install AFNI:
 RUN zypper --gpg-auto-import-keys --non-interactive install \
@@ -52,7 +51,7 @@ RUN ln -s /usr/lib64/libjpeg.so.62.1.0 /usr/lib64/libjpeg.so ; ln -s /usr/lib64/
 RUN zypper --gpg-auto-import-keys --non-interactive install \
                                      python-devel python-numpy python-numpy-devel \
                                      python-matplotlib python-Sphinx \
-                                     doxygen python-dicom dcmtk dcmtk-devel libdcmtk3_6 \
+                                     doxygen dcmtk dcmtk-devel libdcmtk3_6 \
                                      armadillo-devel libarmadillo7 glew glew-devel git \
                                      ace ace-devel boost-devel fftw3 fftw3-devel hdf5 hdf5-devel
 # For Siemens-ISMRMRD converter:

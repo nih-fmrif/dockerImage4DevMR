@@ -6,6 +6,7 @@ zypper ar -f http://download.opensuse.org/update/42.3/ update
 zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_42.3/ packman
 zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_42.3/ education
 zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_42.3/ ace
+zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/c_c++/openSUSE_Leap_42.3/ cplus
 
 
 
@@ -40,8 +41,18 @@ zypper --gpg-auto-import-keys --non-interactive install \
    python-devel python-numpy python-numpy-devel \
    python-matplotlib python-Sphinx \
    doxygen dcmtk dcmtk-devel libdcmtk3_6 \
-   armadillo-devel libarmadillo7 glew glew-devel git \
-   ace ace-devel boost-devel fftw3 fftw3-devel hdf5 hdf5-devel
+   cblas armadillo-devel glew glew-devel git \
+   ace ace-devel fftw3 fftw3-devel hdf5 hdf5-devel \
+   libboost_date_time1_68_0 libboost_date_time1_68_0-devel \
+   libboost_filesystem1_68_0 libboost_filesystem1_68_0-devel \
+   libboost_program_options1_68_0 libboost_program_options1_68_0-devel \
+   libboost_python-py2_7-1_68_0 libboost_python-py2_7-1_68_0-devel \
+   libboost_python-py3-1_68_0 libboost_python-py3-1_68_0-devel \
+   libboost_regex1_68_0 libboost_regex1_68_0-devel \
+   libboost_system1_68_0 libboost_system1_68_0-devel \
+   libboost_test1_68_0 libboost_test1_68_0-devel \
+   libboost_timer1_68_0 libboost_timer1_68_0-devel \
+   libboost_thread1_68_0 libboost_thread1_68_0-devel
 
 # For Siemens-ISMRMRD converter:
 zypper --gpg-auto-import-keys --non-interactive install \

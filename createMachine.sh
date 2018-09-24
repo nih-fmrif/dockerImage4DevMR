@@ -21,6 +21,7 @@ zypper --gpg-auto-import-keys --non-interactive install \
 zypper --gpg-auto-import-keys --non-interactive install \
    vim vim-data tcsh sudo tar which less xterm wget \
    hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
+   gcc6  gcc6-c++  gcc6-fortran \
    python-virtualenv python-psycopg2
    # texlive-latex texlive-extratools texlive-dvips \
    # texlive-beamer texlive-collection-fontsextra \
@@ -53,6 +54,10 @@ zypper --gpg-auto-import-keys --non-interactive install \
    libboost_test1_68_0 libboost_test1_68_0-devel \
    libboost_timer1_68_0 libboost_timer1_68_0-devel \
    libboost_thread1_68_0 libboost_thread1_68_0-devel
+
+# Link to latest gcc for Gadgetron development
+update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-6    50
+update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-48   20
 
 # For Siemens-ISMRMRD converter:
 zypper --gpg-auto-import-keys --non-interactive install \

@@ -43,21 +43,36 @@ zypper --gpg-auto-import-keys --non-interactive install \
    python-matplotlib python-Sphinx \
    doxygen dcmtk dcmtk-devel libdcmtk3_6 \
    cblas armadillo-devel glew glew-devel git \
-   ace ace-devel fftw3 fftw3-devel hdf5 hdf5-devel \
-   libboost_date_time1_68_0 libboost_date_time1_68_0-devel \
-   libboost_filesystem1_68_0 libboost_filesystem1_68_0-devel \
-   libboost_program_options1_68_0 libboost_program_options1_68_0-devel \
-   libboost_python-py2_7-1_68_0 libboost_python-py2_7-1_68_0-devel \
-   libboost_python-py3-1_68_0 libboost_python-py3-1_68_0-devel \
-   libboost_regex1_68_0 libboost_regex1_68_0-devel \
-   libboost_system1_68_0 libboost_system1_68_0-devel \
-   libboost_test1_68_0 libboost_test1_68_0-devel \
-   libboost_timer1_68_0 libboost_timer1_68_0-devel \
-   libboost_thread1_68_0 libboost_thread1_68_0-devel
+   ace ace-devel fftw3 fftw3-devel hdf5 hdf5-devel # \
+   # The distributed version of these libraries in openSUSE 42.3
+   # are NOT built with the C++ 14 standard, so when used to build
+   # the Gadgetron, there are linking errors.  For now, an up to
+   # date version of Boost will be downloaded and built with the
+   # appropriate flags, and for Gadgetron compilation, the
+   # variables and values: CMAKE_C_COMPILER=/usr/bin/gcc-6, 
+   # CMAKE_CXX_COMPILER=/usr/bin/g++-6, and
+   # Boost_INCLUDE_DIR=$HOME/my_root/boost/include    will be used
+   # as part of the cmake command to configure the build process.
+   #
+   # libboost_date_time1_68_0 libboost_date_time1_68_0-devel \
+   # libboost_filesystem1_68_0 libboost_filesystem1_68_0-devel \
+   # libboost_program_options1_68_0 libboost_program_options1_68_0-devel \
+   # libboost_python-py2_7-1_68_0 libboost_python-py2_7-1_68_0-devel \
+   # libboost_python-py3-1_68_0 libboost_python-py3-1_68_0-devel \
+   # libboost_regex1_68_0 libboost_regex1_68_0-devel \
+   # libboost_system1_68_0 libboost_system1_68_0-devel \
+   # libboost_test1_68_0 libboost_test1_68_0-devel \
+   # libboost_timer1_68_0 libboost_timer1_68_0-devel \
+   # libboost_thread1_68_0 libboost_thread1_68_0-devel
 
-# Link to latest gcc for Gadgetron development
+# Link to latest gcc for Gadgetron development, per documentation at:
+#
+#    https://en.opensuse.org/User:Tsu2/gcc_update-alternatives
+#
 update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-6    50
-update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-48   20
+update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-4.8  20
+update-alternatives --install   /usr/bin/g++   g++   /usr/bin/g++-6    50
+update-alternatives --install   /usr/bin/g++   g++   /usr/bin/g++-4.8  20
 
 # For Siemens-ISMRMRD converter:
 zypper --gpg-auto-import-keys --non-interactive install \

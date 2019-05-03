@@ -18,6 +18,3 @@ the lines of:
    docker build -t local:fmrifDevContainerBase .
    ```
 
-An image with a pre-built container should also be available from
-hub.docker.com
-

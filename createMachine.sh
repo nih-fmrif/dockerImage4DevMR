@@ -21,7 +21,7 @@ zypper --gpg-auto-import-keys --non-interactive install \
 zypper --gpg-auto-import-keys --non-interactive install \
    vim vim-data tcsh sudo tar which less xterm wget \
    hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
-   gcc6  gcc6-c++  gcc6-fortran \
+   gcc8  gcc8-c++  gcc8-fortran \
    python3-virtualenv python3-psycopg2
    # texlive-latex texlive-extratools texlive-dvips \
    # texlive-beamer texlive-collection-fontsextra \
@@ -94,9 +94,9 @@ zypper --gpg-auto-import-keys --non-interactive install \
 #
 #    https://en.opensuse.org/User:Tsu2/gcc_update-alternatives
 #
-update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-6    50
+update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-8    50
 update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-4.8  20
-update-alternatives --install   /usr/bin/g++   g++   /usr/bin/g++-6    50
+update-alternatives --install   /usr/bin/g++   g++   /usr/bin/g++-8    50
 update-alternatives --install   /usr/bin/g++   g++   /usr/bin/g++-4.8  20
 
 # For Siemens-ISMRMRD converter:

@@ -2,7 +2,7 @@
 #!/bin/sh
 
 # Useful external repositories for SuSE.
-zypper ar -f http://download.opensuse.org/update/42.3/ update
+zypper ar -f http://download.opensuse.org/update/leap/42.3/ update
 zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_42.3/ packman
 zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_42.3/ education
 zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_42.3/ ace

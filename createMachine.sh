@@ -2,11 +2,11 @@
 #!/bin/sh
 
 # Useful external repositories for SuSE.
-zypper ar -f http://download.opensuse.org/update/leap/42.3/ update
+# zypper ar -f http://download.opensuse.org/update/leap/42.3/ update
 zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_42.3/ packman
 zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_42.3/ education
 zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_42.3/ ace
-zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/c_c++/openSUSE_Leap_42.3/ cplus
+# zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/c_c++/openSUSE_Leap_42.3/ cplus
 
 
 
@@ -22,10 +22,10 @@ zypper --gpg-auto-import-keys --non-interactive install \
    vim vim-data tcsh sudo tar which less xterm wget \
    hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
    gcc8  gcc8-c++  gcc8-fortran \
-   python3-virtualenv python3-psycopg2
-   # texlive-latex texlive-extratools texlive-dvips \
-   # texlive-beamer texlive-collection-fontsextra \
-   # texlive-collection-fontsrecommended
+   python3-virtualenv python3-psycopg2 \
+   texlive-latex texlive-extratools texlive-dvips \
+   texlive-beamer texlive-collection-fontsextra \
+   texlive-collection-fontsrecommended
 
 # To buld and install AFNI:
 zypper --gpg-auto-import-keys --non-interactive install \
@@ -65,26 +65,37 @@ zypper --gpg-auto-import-keys --non-interactive install \
    #
    #
    # As of January 2019, building with openSUSE's gcc-6 and g++-6
-   # and version 1.69 of the system's boost libraries will allow
+   # and version 1.61 of the system's boost libraries will allow
    # Gadgetron to successfully build.
 
 zypper --gpg-auto-import-keys --non-interactive install \
-   boost-license1_69_0            libboost_headers1_69_0-devel \
-   libboost_chrono1_69_0          libboost_chrono1_69_0-devel \
-   libboost_container1_69_0       libboost_container1_69_0-devel \
-   libboost_date_time1_69_0       libboost_date_time1_69_0-devel \
-   libboost_filesystem1_69_0      libboost_filesystem1_69_0-devel \
-   libboost_program_options1_69_0 libboost_program_options1_69_0-devel \
-   libboost_python3-devel \
-   libboost_python-py3-1_69_0     libboost_python-py3-1_69_0-devel \
-   libboost_regex1_69_0           libboost_regex1_69_0-devel \
-   libboost_system1_69_0          libboost_system1_69_0-devel \
-   libboost_thread1_69_0          libboost_thread1_69_0-devel \
-   libboost_timer1_69_0           libboost_timer1_69_0-devel \
-   libboost_test1_69_0            libboost_test1_69_0-devel
+   boost-license1_61_0            \
+   libboost_chrono1_61_0          \
+   libboost_container1_61_0       \
+   libboost_date_time1_61_0       \
+   libboost_filesystem1_61_0      \
+   libboost_program_options1_61_0 \
+   libboost_python3-1_61_0        \
+   libboost_regex1_61_0           \
+   libboost_system1_61_0          \
+   libboost_thread1_61_0          \
+   libboost_timer1_61_0           \
+   libboost_test1_61_0
+ # libboost_headers1_61_0-devel \
+ # libboost_chrono1_61_0-devel \
+ # libboost_container1_61_0-devel \
+ # libboost_date_time1_61_0-devel \
+ # libboost_filesystem1_61_0-devel \
+ # libboost_program_options1_61_0-devel \
+ # libboost_python-py3-1_61_0-devel \
+ # libboost_regex1_61_0-devel \
+ # libboost_system1_61_0-devel \
+ # libboost_thread1_61_0-devel \
+ # libboost_timer1_61_0-devel \
+ # libboost_test1_61_0-devel
 
 # to try to 'python3-ize' the installation as much as possible
-zypper --non-interactive remove python python-base python-devel
+# zypper --non-interactive remove python python-base python-devel
 zypper --gpg-auto-import-keys --non-interactive install \
    cmake git python3-base python3-devel python3-numpy \
    python3-numpy-devel python3-Cython python3-six \

@@ -1,5 +1,11 @@
 
-FROM opensuse/leap:42.3
+FROM opensuse/leap:15.2
+
+# Need to have this line _AFTER_ the 'FROM' call, otherwise
+# the build won't work.  So need to set the correct version
+# in 2 places, but at least they are right next to each
+# other.
+ENV  VERSION_SUSE  15.2
 
 
 

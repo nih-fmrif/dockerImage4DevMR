@@ -2,33 +2,38 @@
 #!/bin/sh
 
 # Useful external repositories for SuSE.
-# zypper ar -f http://download.opensuse.org/update/leap/42.3/ update
-zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_42.3/ packman
-zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_42.3/ education
-zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_42.3/ ace
-# zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/c_c++/openSUSE_Leap_42.3/ cplus
+zypper ar -f http://download.opensuse.org/update/leap/$VERSION_SUSE/ update    | echo 'a'
+zypper ar -f http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_Leap_$VERSION_SUSE/ packman    | echo 'a'
+# zypper ar -f http://download.opensuse.org/repositories/Education/openSUSE_Leap_$VERSION_SUSE/ education    | echo 'a'
+# zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/ACE:/major/openSUSE_Leap_$VERSION_SUSE/ ace    | echo 'a'
+zypper ar -f http://download.opensuse.org/repositories/devel:/libraries:/c_c++/openSUSE_Leap_$VERSION_SUSE/ cplus    | echo 'a'
+
+zypper refresh
 
 
 
 # Install requirements for Orchestra and ESE.  Some, like 'rpm' and 'libz' are
 # already in the default image.
-zypper --gpg-auto-import-keys --non-interactive install \
+zypper --non-interactive --gpg-auto-import-keys install \
    make   imake   rsync   socat   xmessage   xclock   emacs \
    which  xorg-x11-fonts   libXpm4-32bit   libXm4-32bit \
    libUil4-32bit   libMrm4-32bit glibc-32bit   libgcc_s1-32bit   
 
+zypper clean
+
 # More generic utilities
-zypper --gpg-auto-import-keys --non-interactive install \
+zypper --non-interactive --gpg-auto-import-keys install \
    vim vim-data tcsh sudo tar which less xterm wget \
    hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
-   gcc8  gcc8-c++  gcc8-fortran \
-   python3-virtualenv python3-psycopg2 \
+   gcc8  gcc8-c++  gcc8-fortran python3-psycopg2 doxygen \
    texlive-latex texlive-extratools texlive-dvips \
    texlive-beamer texlive-collection-fontsextra \
    texlive-collection-fontsrecommended
 
+zypper clean
+
 # To buld and install AFNI:
-zypper --gpg-auto-import-keys --non-interactive install \
+zypper --non-interactive --gpg-auto-import-keys install \
    libXft-devel libXp-devel libXpm-devel \
    libXmu-devel libpng12-devel libjpeg62 \
    zlib-devel libXt-devel libXext-devel \
@@ -37,13 +42,16 @@ zypper --gpg-auto-import-keys --non-interactive install \
    gsl-devel glu-devel freeglut-devel \
    netcdf netcdf-devel glib2-devel R-base-devel
 
+zypper clean
+
 # Gadgetron and ISMRMRD development:
-zypper --gpg-auto-import-keys --non-interactive install \
+zypper --non-interactive --gpg-auto-import-keys install \
    python3-devel python3-numpy python3-numpy-devel \
-   python3-matplotlib python3-Sphinx \
-   doxygen dcmtk dcmtk-devel libdcmtk3_6 \
+   python3-matplotlib python3-Sphinx python3-Cython \
+   python3-six python3-virtualenv libpython2_7-1_0 \
+   dcmtk dcmtk-devel libdcmtk3_6 \
    cblas armadillo-devel glew glew-devel git \
-   ace ace-devel fftw3 fftw3-devel # hdf5 hdf5-devel \ # SuSE-supplied
+   fftw3-devel # ace ace-devel hdf5 hdf5-devel \ # SuSE-supplied
    # HDF version not compatible with Orchestra development environment.
    # Use libraries supplied with that environment instead.
    #
@@ -68,57 +76,28 @@ zypper --gpg-auto-import-keys --non-interactive install \
    # and version 1.61 of the system's boost libraries will allow
    # Gadgetron to successfully build.
 
-zypper --gpg-auto-import-keys --non-interactive install \
-   boost-license1_61_0            \
-   libboost_chrono1_61_0          \
-   libboost_container1_61_0       \
-   libboost_date_time1_61_0       \
-   libboost_filesystem1_61_0      \
-   libboost_program_options1_61_0 \
-   libboost_python3-1_61_0        \
-   libboost_regex1_61_0           \
-   libboost_system1_61_0          \
-   libboost_thread1_61_0          \
-   libboost_timer1_61_0           \
-   libboost_test1_61_0
- # libboost_headers1_61_0-devel \
- # libboost_chrono1_61_0-devel \
- # libboost_container1_61_0-devel \
- # libboost_date_time1_61_0-devel \
- # libboost_filesystem1_61_0-devel \
- # libboost_program_options1_61_0-devel \
- # libboost_python-py3-1_61_0-devel \
- # libboost_regex1_61_0-devel \
- # libboost_system1_61_0-devel \
- # libboost_thread1_61_0-devel \
- # libboost_timer1_61_0-devel \
- # libboost_test1_61_0-devel
+zypper clean
 
-# to try to 'python3-ize' the installation as much as possible
-# zypper --non-interactive remove python python-base python-devel
-zypper --gpg-auto-import-keys --non-interactive install \
-   cmake git python3-base python3-devel python3-numpy \
-   python3-numpy-devel python3-Cython python3-six \
-   python3-pip python3-setuptools python3-virtualenv
+zypper --non-interactive --gpg-auto-import-keys install \
+   boost-license1_66_0                  \
+   libboost_chrono1_66_0-devel          \
+   libboost_container1_66_0-devel       \
+   libboost_date_time1_66_0-devel       \
+   libboost_filesystem1_66_0-devel      \
+   libboost_program_options1_66_0-devel \
+   libboost_python-py2_7-1_66_0-devel   \
+   libboost_python-py3-1_66_0-devel     \
+   libboost_regex1_66_0-devel           \
+   libboost_system1_66_0-devel          \
+   libboost_thread1_66_0-devel          \
+   libboost_timer1_66_0-devel           \
+   libboost_test1_66_0-devel
 
-# Link to latest gcc for Gadgetron development, per documentation at:
-#
-#    https://en.opensuse.org/User:Tsu2/gcc_update-alternatives
-#
-update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-8    50
-update-alternatives --install   /usr/bin/gcc   gcc   /usr/bin/gcc-4.8  20
-update-alternatives --install   /usr/bin/g++   g++   /usr/bin/g++-8    50
-update-alternatives --install   /usr/bin/g++   g++   /usr/bin/g++-4.8  20
+zypper clean
 
 # For Siemens-ISMRMRD converter:
-zypper --gpg-auto-import-keys --non-interactive install \
+zypper --non-interactive --gpg-auto-import-keys install \
    xsd libxerces-c-devel libxslt-devel tinyxml-devel libxml2-devel
 
-
-
-# Make a few links needed for various software suites.
-ln -s  /usr/lib64/libpng16.so.16.8.0  /usr/lib64/libpng.so
-ln -s  /lib64/libz.so.1  /lib64/libz.so
-# to have libboost link to python3 version
-rm /usr/lib64/libboost_python.so ; ln -s /usr/lib64/libboost_python3.so /usr/lib64/libboost_python.so
+zypper clean
 

@@ -13,7 +13,9 @@ zypper   --non-interactive remove hdf5 hdf5-devel
 
 
 
-# Add informix group
+# Add (potentially) useful groups
+groupadd -f            sys
+groupadd -f            mail
 groupadd -f   -g 201   informix
 
 # and the default (sdc) user ... :

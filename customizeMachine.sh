@@ -5,7 +5,7 @@ export   ESEHOME=/usr/local/devGE
 export   SDKTOP=/usr/local/devGE/Orchestra
 
 mkdir -p $ESEHOME/tmp
-
+chmod    777   $ESEHOME
 
 # Remove system HDF5 as compiler would not behave properly with both this
 # and Orchestra HDF5 libraries simultaneously.

@@ -54,27 +54,6 @@ zypper --non-interactive --gpg-auto-import-keys install \
    fftw3-devel # ace ace-devel hdf5 hdf5-devel \ # SuSE-supplied
    # HDF version not compatible with Orchestra development environment.
    # Use libraries supplied with that environment instead.
-   #
-   #
-   #
-   # The distributed version (1.68) of boost libraries originally
-   # distributed with openSUSE 42.3 were NOT built with the C++ 14
-   # standard, so when used to build the Gadgetron, there were
-   # linking errors.  To work around this, a current version of 
-   # Boost was downloaded and built with the appropriate flags and
-   # for Gadgetron compilation, the variables and values:
-   #
-   #    CMAKE_C_COMPILER=/usr/bin/gcc-6, 
-   #    CMAKE_CXX_COMPILER=/usr/bin/g++-6
-   #    Boost_INCLUDE_DIR=$HOME/my_root/boost/include
-   #
-   # were used as part of the cmake command line.
-   #
-   #
-   #
-   # As of January 2019, building with openSUSE's gcc-6 and g++-6
-   # and version 1.61 of the system's boost libraries will allow
-   # Gadgetron to successfully build.
 
 zypper clean
 

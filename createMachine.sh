@@ -16,7 +16,7 @@ zypper refresh
 # already in the default image.
 zypper --non-interactive --gpg-auto-import-keys install \
    make   imake   rsync   socat   xmessage   xclock   emacs \
-   which  xorg-x11-fonts   libXpm4-32bit   libXm4-32bit \
+   which  gzip   xorg-x11-fonts   libXpm4-32bit   libXm4-32bit \
    libUil4-32bit   libMrm4-32bit glibc-32bit   libgcc_s1-32bit   
 
 zypper clean

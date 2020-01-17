@@ -26,9 +26,9 @@ zypper --non-interactive --gpg-auto-import-keys install \
    vim vim-data tcsh sudo tar which less xterm wget \
    hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
    gcc8  gcc8-c++  gcc8-fortran python3-psycopg2 doxygen \
-   texlive-latex texlive-extratools texlive-dvips \
-   texlive-beamer texlive-collection-fontsextra \
-   texlive-collection-fontsrecommended
+   xfig texlive-latex texlive-extratools texlive-dvips \
+   texlive-beamer # texlive-collection-fontsextra \
+   # texlive-collection-fontsrecommended
 
 zypper clean
 

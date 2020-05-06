@@ -51,7 +51,11 @@ zypper --non-interactive --gpg-auto-import-keys install \
    python3-six python3-virtualenv libpython2_7-1_0 \
    dcmtk dcmtk-devel libdcmtk3_6 \
    cblas armadillo-devel glew glew-devel git \
-   fftw3-devel # ace ace-devel hdf5 hdf5-devel \ # SuSE-supplied
+   fftw3-devel lapacke-devel pugixml-devel \
+   openmpi-devel  libopenblas_openmp-devel \
+   libqt4-devel plplot-devel plplotcxx-devel
+   python3-torch-devel
+   # ace ace-devel hdf5 hdf5-devel \ # SuSE-supplied
    # HDF version not compatible with Orchestra development environment.
    # Use libraries supplied with that environment instead.
 
@@ -63,14 +67,18 @@ zypper --non-interactive --gpg-auto-import-keys install \
    libboost_container1_66_0-devel       \
    libboost_date_time1_66_0-devel       \
    libboost_filesystem1_66_0-devel      \
+   libboost_numpy-py3-1_66_0-devel      \
    libboost_program_options1_66_0-devel \
    libboost_python-py2_7-1_66_0-devel   \
    libboost_python-py3-1_66_0-devel     \
    libboost_regex1_66_0-devel           \
+   libboost_serialization1_66_0-devel   \
+   libboost_signals1_66_0-devel         \
    libboost_system1_66_0-devel          \
    libboost_thread1_66_0-devel          \
    libboost_timer1_66_0-devel           \
-   libboost_test1_66_0-devel
+   libboost_test1_66_0-devel            \
+   libboost_random1_66_0-devel
 
 zypper clean
 

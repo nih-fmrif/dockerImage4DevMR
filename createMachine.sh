@@ -23,7 +23,7 @@ zypper clean
 
 # More generic utilities
 zypper --non-interactive --gpg-auto-import-keys install \
-   vim vim-data tcsh sudo tar which less xterm wget \
+   vim vim-data tcsh sudo tar which less xterm wget zsh \
    hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
    gcc8  gcc8-c++  gcc8-fortran python3-psycopg2 doxygen \
    xfig texlive-latex texlive-extratools texlive-dvips \

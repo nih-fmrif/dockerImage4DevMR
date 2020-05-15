@@ -28,21 +28,21 @@ zypper --non-interactive --gpg-auto-import-keys install \
    vim vim-data tcsh sudo tar which less xterm wget zsh \
    hostname cmake gcc gcc-c++ xeyes postgresql-plpython \
    gcc8  gcc8-c++  gcc8-fortran python3-psycopg2 doxygen \
-   xfig texlive-latex texlive-extratools texlive-dvips \
-   texlive-beamer # texlive-collection-fontsextra \
+   xfig # texlive-latex texlive-extratools texlive-dvips \
+   # texlive-beamer texlive-collection-fontsextra \
    # texlive-collection-fontsrecommended
 
 zypper clean
 
-# # To buld and install AFNI:
-# zypper --non-interactive --gpg-auto-import-keys install \
-   # libXft-devel libXp-devel libXpm-devel \
-   # libXmu-devel libpng12-devel libjpeg62 \
-   # libXt-devel libXext-devel \
-   # libXi-devel libexpat-devel netpbm m4 \
-   # libnetpbm-devel libGLU1 motif motif-devel \
-   # gsl-devel glu-devel freeglut-devel \
-   # netcdf netcdf-devel glib2-devel R-base-devel
+# To buld and install AFNI:
+zypper --non-interactive --gpg-auto-import-keys install \
+   libXft-devel libXp-devel libXpm-devel \
+   libXmu-devel libpng12-devel libjpeg62 \
+   libXt-devel libXext-devel \
+   libXi-devel libexpat-devel netpbm m4 \
+   libnetpbm-devel libGLU1 motif motif-devel \
+   gsl-devel glu-devel freeglut-devel \
+   netcdf netcdf-devel glib2-devel R-base-devel
 
 # zypper clean
 
@@ -69,6 +69,7 @@ zypper --non-interactive --gpg-auto-import-keys install \
    libboost_container1_66_0-devel       \
    libboost_date_time1_66_0-devel       \
    libboost_filesystem1_66_0-devel      \
+   libboost_math1_66_0-devel            \
    libboost_numpy-py3-1_66_0-devel      \
    libboost_program_options1_66_0-devel \
    libboost_python-py2_7-1_66_0-devel   \

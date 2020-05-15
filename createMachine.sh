@@ -57,9 +57,11 @@ zypper --non-interactive --gpg-auto-import-keys install \
    openmpi-devel  libopenblas_openmp-devel \
    libqt4-devel plplot-devel plplotcxx-devel
    python3-torch-devel
-   # hdf5 hdf5-devel \ # SuSE-supplied HDF version not
+   hdf5 hdf5-devel \ # SuSE-supplied HDF version not
    # compatible with Orchestra development environment.
-   # Use libraries supplied with that environment instead.
+   # Use libraries supplied with that environment instead
+   # to build GE-ISMRMRD converter.  Use this version for
+   # gadgetron.
 
 zypper clean
 
